@@ -33,9 +33,13 @@ class Array {
     memory.free(oldPointer);
     this._capacity = size;
   }
-    
-    
-    
+
+  get(index) {
+    if (index < 0 || index >= this.length) {
+      throw new Error("Index error");
+    }
+    return memory.get(this.ptr + index);
+  }
 }
 
 // triple the size of memory that is allocated
