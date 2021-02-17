@@ -49,7 +49,11 @@ class Array {
     this.length--;
     return value;
   }
+    
+    
 }
 
 // triple the size of memory that is allocated
 Array.SIZE_RATIO = 3;
+
+0 1 2 3 4 5
