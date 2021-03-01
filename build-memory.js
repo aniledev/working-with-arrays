@@ -40,7 +40,8 @@ class Memory {
 
   /* the free() method is used to free up a block of memory that was reserved using 
     the allocate method */
-  free() {}
+    free (pointer) { }
+    // this would return undefined meaning that no value is set at that pointer index
 
   // the copy() method is used to copy a specific number of boxes
   copy() {}
