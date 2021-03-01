@@ -4,7 +4,8 @@ class Memory {
     this.head = 0;
   }
 
-  //  reserves a contiguous block of memory consisting of size boxes which you can safely modify, returning a pointer to the 1st box or null if the allocation fails
+  /* reserves a contiguous block of memory consisting of size boxes which you 
+  can safely modify, returning a pointer to the 1st box or null if the allocation fails */
   allocate(size) {
     if (this.head + size > this.memory.length) {
       return null;
@@ -19,8 +20,10 @@ class Memory {
   // frees the block of memory reserved using allocate
   free(pointer) {}
 
-  // copies size boxes of data from the from pointer to the to pointer (for example, copy(10, 0, 3) would copy the values at boxes 0, 1 and 2 to the boxes at 10, 11 and 12 respectively)
-  copy(toIdx, fromIdx, size) {
+  /* copies size boxes of data from the from a pointer to an end pointer (for example, 
+  copy(0, 10, 3) would copy the values from boxes 0, 1 and 2 to the boxes at 10, 11 and;
+  12 respectively) */
+  copy(fromIdx, toIdx, size) {
     if (fromIdx === toIdx) {
       return;
     }
