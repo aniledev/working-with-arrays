@@ -31,8 +31,12 @@ class Memory {
     this.memory[pointer] = value;
   }
 
-  // the get() method is used to retrieve a value stored at a certain memory block
-  get() {}
+  /* the get() method is used to retrieve a value stored at a certain memory block using 
+    a pointer parameter */
+  get(pointer) {
+    // access the value at the pointer index in the memory array and return it
+    return this.memory[pointer];
+  }
 
   /* the free() method is used to free up a block of memory that was reserved using 
     the allocate method */
