@@ -22,9 +22,14 @@ class Memory {
     /* return a pointer to the first memory box*/
     return start;
   }
-    
-  // the set method is used to set teh value stored at a certain memory block
-  set() {}
+
+  /* the set method, which takes a value and pointer parameter, is used to set the 
+    value stored at a certain memory block */
+  set(pointer, value) {
+    /* access the memory array at the pointer index and set the value equal to the 
+    value parameter */
+    this.memory[pointer] = value;
+  }
 
   // the get() method is used to retrieve a value stored at a certain memory block
   get() {}
