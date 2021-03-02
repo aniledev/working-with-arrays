@@ -18,6 +18,7 @@ class Array {
 
     // then set the value of the new memory blocks
     memory.set(this.pointer + this.length, value);
+    // we've added a new value to the array, so the length needs to be incremented
     this.length++;
   }
 
@@ -59,7 +60,11 @@ class Array {
       this._resize((this.length + 1) * Array.SIZE_RATIO);
     }
 
-    memory.copy(this.pointer + index + 1, this.pointer + index, this.length - index);
+    memory.copy(
+      this.pointer + index + 1,
+      this.pointer + index,
+      this.length - index
+    );
     memory.set(this.pointer + index, value);
     this.length++;
   }
