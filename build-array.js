@@ -19,6 +19,8 @@ class Array {
     }
     /* then use the set method to set the value of the memory block at a pointer */
     this.set(this.pointer + this.length, value);
+    // we've added a new value to the array, so the length needs to be incremented
+    this.length++;
   }
 
   // create pop method used to remove items from the end of the array

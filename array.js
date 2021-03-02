@@ -18,7 +18,7 @@ class Array {
 
     // then set the value of the new memory blocks
     memory.set(this.pointer + this.length, value);
-    // we've added a new value to the array, so the length needs to be incremented
+    
     this.length++;
   }
 
