@@ -6,7 +6,7 @@ class Array {
     this.length = 0;
     // capacity indicates how many items you can hold without needing to resize
     this._capacity = 0;
-    this.prt = memory.allocate(this.length);
+    this.pointer = memory.allocate(this.length);
   }
 
   // push to end of array -- increase the amount of memory blocks
@@ -38,14 +38,14 @@ class Array {
     if (index < 0 || index >= this.length) {
       throw new Error("Index error");
     }
-    return memory.get(this.ptr + index);
+    return memory.get(this.pointer + index);
   }
 
   pop() {
     if (this.length == 0) {
       throw new Error("Index error");
     }
-    const value = memory.get(this.ptr + this.length - 1);
+    const value = memory.get(this.pointer + this.length - 1);
     this.length--;
     return value;
   }
@@ -59,8 +59,8 @@ class Array {
       this._resize((this.length + 1) * Array.SIZE_RATIO);
     }
 
-    memory.copy(this.ptr + index + 1, this.ptr + index, this.length - index);
-    memory.set(this.ptr + index, value);
+    memory.copy(this.pointer + index + 1, this.pointer + index, this.length - index);
+    memory.set(this.pointer + index, value);
     this.length++;
   }
 
@@ -69,8 +69,8 @@ class Array {
       throw new Error("Index error");
     }
     memory.copy(
-      this.ptr + index,
-      this.ptr + index + 1,
+      this.pointer + index,
+      this.pointer + index + 1,
       this.length - index - 1
     );
     this.length--;
