@@ -40,22 +40,32 @@ class Memory {
 
   /* the free() method is used to free up a block of memory that was reserved using 
     the allocate method */
-  free(pointer) {}
   // this would return undefined meaning that no value is set at that pointer index
+
+  free(pointer) {}
 
   /* the copy() method is used to copy a specific number of boxes from one index to another 
   index */
   copy(fromIdx, toIdx, size) {
     /* if the index from which your're trying to copy is strictly equal to the index you're 
     trying to copy to, then return undefined */
-    /* if the index from which you're trying to copy is greater than the index to which you're
-    trying to copy, then use a for loop to loop through the size iterating forward
-    
-    /* use the set() method to set the pointer parameter to be the toIdx, and set the value to 
-    using the get() method and the value of the fromIdx */
-    /* if the fromIdx is not greater than the toIdx, then iterate backwards using a for let loop */
-    /* use the set() and the get() method as a parameter to copy over the values*/
+    if (fromIdx === toIdx) {
+      return;
+    }
+    /* if the index from which you're trying to copy is greater than the index to which 
+    you're trying to copy, then use a for loop to loop through the size iterating forward*/
+    if (fromIdx > toIdx) {
+      for (let i = 0; i < size; i++) {
+        /* use the set() method to set the pointer parameter to be the toIdx, and set the value to 
+      using the get() method and the value of the fromIdx */
+        this.set(toIdx + i, this.get(fromIdx + i));
+      }
+    } else {
+      /* else if the fromIdx is not greater than the toIdx, then iterate backwards using a for let loop */
+      for (let i = size - 1; i >= 0; i--) {
+        /* use the set() and the get() method as a parameter to copy over the values*/
+        this.set(toIdx + i, this.get(fromIdx + i));
+      }
+    }
   }
 }
-
-//
