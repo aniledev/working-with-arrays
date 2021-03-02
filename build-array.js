@@ -27,7 +27,14 @@ class Array {
   pop() {}
 
   // get method used to retrieve a value from a memory block
-  get(index) {}
+  get(index) {
+    // if the index value is not present in the array throw a new error
+    if (index < 0 || index >= this.length) {
+      throw new Error("Index error.");
+    }
+    // else use memory.get to retrieve a value
+    return memory.get(this.pointer + index);
+  }
 
   // insert used to put in a value at a certain memory block in the array
   insert(index, value) {}
