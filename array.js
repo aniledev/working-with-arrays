@@ -18,7 +18,7 @@ class Array {
 
     // then set the value of the new memory blocks
     memory.set(this.pointer + this.length, value);
-    
+
     this.length++;
   }
 
@@ -30,7 +30,7 @@ class Array {
       throw new Error("Out of memory");
     }
 
-    memory.copy(this.pointer, oldPointer, this.length);
+    memory.copy(oldPointer, this.pointer, this.length);
     memory.free(oldPointer);
     this._capacity = size;
   }

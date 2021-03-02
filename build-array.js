@@ -36,8 +36,25 @@ class Array {
   remove(index) {}
 
   /* resize method is used to resize the array so that the capacity of the array in
-    memory is always larger than the length of the array */
-  _resize(size) {}
+    memory is always larger than the length of the array; allocate a larger chunk of memory,
+    copy from old chunk to new chunk, free the old chunk of memory */
+  _resize(size) {
+    // create a variable for the old pointer from where you're copying
+    const oldPointer = this.pointer;
+    /* create a variable for the new pointer to which you're copying; the new pointer  
+        should point to the new memory blocks that you've allocated based on the size*/
+    this.pointer = memory.allocate(size);
+
+    // throw an error if this.pointer is null
+    if (this.pointer === null) {
+      throw new Error("Out of memory");
+    }
+
+    // copy to the new memory
+    memory.copy(oldPointer, this.pointer, this.length);
+    // free the old memory
+    memory.free(oldPointer);
+  }
 }
 
 // triple the size of memory that is allocated
