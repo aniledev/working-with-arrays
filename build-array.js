@@ -24,7 +24,21 @@ class Array {
   }
 
   // create pop method used to remove items from the end of the array
-  pop() {}
+  pop() {
+    // if the array has a length of 0, no values return an error
+    if (this.length === 0) {
+      throw new Error("Index error.");
+    }
+
+    /* create a variable to hold the value of the last element in the array, 
+        retried using memory.get */
+    const value = this.get(this.pointer + this.length - 1);
+    // decrement the length of the array since we are removing a value from the end
+    this.length--;
+
+    //return the value
+    return value;
+  }
 
   // get method used to retrieve a value from a memory block
   get(index) {
@@ -37,7 +51,31 @@ class Array {
   }
 
   // insert used to put in a value at a certain memory block in the array
-  insert(index, value) {}
+  insert(index, value) {
+    // if the index is not part of the array, throw a new error
+    if (index < 0 || index >= this.length) {
+      throw new Error("Index error.");
+    }
+
+    // if the length of the array is greater than the capacity in memory, then the array needs to be resized
+    if (this.length >= this.capacity) {
+      this._resize((this.pointer + this.length) * Array.SIZE_RATIO);
+    }
+
+    /* if a value in inserted in the array, the array needs to shifted down first by copying one chunk 
+    to the new memory blocks */
+    memory.copy(
+      this.pointer + index, // fromInx -- > copying from the index after you insert the value into array
+      this.pointer + index + 1, // toIdx -- > the index to which you are going to copy the new array chunk
+      this.length - index // the number of values to copy over; from the index to the end of the array
+    );
+
+    // then the value can be inserted at the pointer index
+    memory.set(this.pointer + index, value); 
+
+    // finally the length can be incremented because one new value was added to the array
+    this.length++;
+  }
 
   // remove method used too remove a value from a certain memory block in the array
   remove(index) {}
