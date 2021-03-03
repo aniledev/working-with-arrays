@@ -1,37 +1,37 @@
-const memory = require("./memory");
+import { Memory } from "./Memory";
 
 class Array {
-  // this would create an empty array with 0 "blocks of memory"
+  // this would create an empty array with 0 "blocks of Memory"
   constructor() {
     this.length = 0;
     // capacity indicates how many items you can hold without needing to resize
     this._capacity = 0;
-    this.pointer = memory.allocate(this.length);
+    this.pointer = Memory.allocate(this.length);
   }
 
-  // push to end of array -- increase the amount of memory blocks
+  // push to end of array -- increase the amount of Memory blocks
   push(value) {
-    // array should be capable of holding more than than it actually has; if memory blocks >= capacity, then resize
+    // array should be capable of holding more than than it actually has; if Memory blocks >= capacity, then resize
     if (this.length >= this._capacity) {
       this._resize((this.length + 1) * Array.SIZE_RATIO);
     }
 
-    // then set the value of the new memory blocks
-    memory.set(this.pointer + this.length, value);
+    // then set the value of the new Memory blocks
+    Memory.set(this.pointer + this.length, value);
 
     this.length++;
   }
 
   _resize(size) {
     const oldPointer = this.pointer;
-    this.pointer = memory.allocate(size);
+    this.pointer = Memory.allocate(size);
 
     if (this.pointer === null) {
-      throw new Error("Out of memory");
+      throw new Error("Out of Memory");
     }
 
-    memory.copy(oldPointer, this.pointer, this.length);
-    memory.free(oldPointer);
+    Memory.copy(oldPointer, this.pointer, this.length);
+    Memory.free(oldPointer);
     this._capacity = size;
   }
 
@@ -39,14 +39,14 @@ class Array {
     if (index < 0 || index >= this.length) {
       throw new Error("Index error");
     }
-    return memory.get(this.pointer + index);
+    return Memory.get(this.pointer + index);
   }
 
   pop() {
     if (this.length == 0) {
       throw new Error("Index error");
     }
-    const value = memory.get(this.pointer + this.length - 1);
+    const value = Memory.get(this.pointer + this.length - 1);
     this.length--;
     return value;
   }
@@ -60,12 +60,12 @@ class Array {
       this._resize((this.length + 1) * Array.SIZE_RATIO);
     }
 
-    memory.copy(
+    Memory.copy(
       this.pointer + index + 1,
       this.pointer + index,
       this.length - index
     );
-    memory.set(this.pointer + index, value);
+    Memory.set(this.pointer + index, value);
     this.length++;
   }
 
@@ -73,7 +73,7 @@ class Array {
     if (index < 0 || index >= this.length) {
       throw new Error("Index error");
     }
-    memory.copy(
+    Memory.copy(
       this.pointer + index + 1,
       this.pointer + index,
       this.length - index - 1
@@ -81,5 +81,19 @@ class Array {
     this.length--;
   }
 }
-// triple the size of memory that is allocated
+// triple the size of Memory that is allocated
 Array.SIZE_RATIO = 3;
+
+function main() {
+  Array.SIZE_RATIO = 3;
+
+  // Create an instance of the Array class
+  let arr = new Array();
+
+  // Add an item to the array
+  arr.push(3);
+
+  console.log(arr);
+}
+
+main();
