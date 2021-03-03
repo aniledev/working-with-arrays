@@ -1,24 +1,27 @@
-const memory = require("./build-memory");
+"use strict";
+const Memory = require("./memory");
+
+const memory = new Memory();
 
 // initialize the Array class
 class Array {
   // add a constructor method to the class
   constructor() {
-    // give the constructor three properties: length, capacity, and pointer
+    // give the constructor three properties: length, _capacity, and pointer
     this.length = 0;
-    this.capacity = 0;
+    this._capacity = 0;
     this.pointer = memory.allocate(this.length);
   }
 
   // create a push method using to add item to the end of the array
   push(value) {
-    /* if the array length is greater than the capacity, the memory blocks allocated, 
+    /* if the array length is greater than the _capacity, the memory blocks allocated, 
         then resize the array first using the size ratio*/
-    if (this.length >= this.capacity) {
+    if (this.length >= this._capacity) {
       this._resize((this.length + 1) * Array.SIZE_RATIO);
     }
     /* then use the set method to set the value of the memory block at a pointer */
-    this.set(this.pointer + this.length, value);
+    memory.set(this.pointer + this.length, value);
     // we've added a new value to the array, so the length needs to be incremented
     this.length++;
   }
@@ -57,8 +60,8 @@ class Array {
       throw new Error("Index error.");
     }
 
-    // if the length of the array is greater than the capacity in memory, then the array needs to be resized
-    if (this.length >= this.capacity) {
+    // if the length of the array is greater than the _capacity in memory, then the array needs to be resized
+    if (this.length >= this._capacity) {
       this._resize((this.pointer + this.length) * Array.SIZE_RATIO);
     }
 
@@ -99,7 +102,7 @@ class Array {
     this.length--;
   }
 
-  /* resize method is used to resize the array so that the capacity of the array in
+  /* resize method is used to resize the array so that the _capacity of the array in
     memory is always larger than the length of the array; allocate a larger chunk of memory,
     copy from old chunk to new chunk, free the old chunk of memory */
   _resize(size) {
@@ -118,12 +121,20 @@ class Array {
     memory.copy(oldPointer, this.pointer, this.length);
     // free the old memory
     memory.free(oldPointer);
+
+    // capacity of memory blocks redeclare as equal to size
+    this._capacity = size;
   }
 }
 
 // triple the size of memory that is allocated
 Array.SIZE_RATIO = 3;
 
+/* 1. What is the length, _capacity and memory address of your array? 
+length = 1
+capacity = 3
+pointer = 0
+*/
 function main() {
   Array.SIZE_RATIO = 3;
 
