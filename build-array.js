@@ -197,3 +197,11 @@ function lessThan5Filter(array) {
   return console.log(result);
 }
 lessThan5Filter([1, 4, 5, 6, 5, 7, 3, 8, 10, 4, 2, 3, 5, 15]);
+
+/* 7. Max sum in the array
+You are given an array containing positive and negative integers. Write an algorithm 
+which will find the largest sum in a continuous sequence. */
+function maxSum (array) {
+  // declare a variable to hold the max sum
+  // 
+}
