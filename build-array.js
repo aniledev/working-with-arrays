@@ -130,7 +130,7 @@ class Array {
 // triple the size of memory that is allocated
 Array.SIZE_RATIO = 3;
 
-/* 1. What is the length, _capacity and memory address of your array? 
+/* 2. What is the length, _capacity and memory address of your array? 
 length = 1
 capacity = 3
 pointer = 0
@@ -143,8 +143,57 @@ function main() {
 
   // Add an item to the array
   arr.push(3);
+  arr.push(5);
+  arr.push(15);
+  arr.push(19);
+  arr.push(45);
+  arr.push(10);
+
+  // length = 6, capacity = 12, pointer = 3
 
   console.log(arr);
 }
 
 main();
+
+/* 5. Urlify a string
+Input: tauhida parveen
+Output: tauhida%20parveen*/
+
+function urlString(string) {
+  // declare a variable to hold the output
+  let result = "";
+
+  // loop through the string
+  for (let i = 0; i < string.length; i++) {
+    // check each character of the string, if the character is a space, then result = %20
+    if (string[i] === " ") {
+      result += "%20";
+    } else {
+      // else result = the value of the character at that index
+      result += string[i];
+    }
+  }
+  return console.log(result);
+}
+urlString("apple cart");
+
+/* 6. Filtering an array. Remove all numbers less than 5. Remember filter does not mutate the 
+original array .
+Input: [1, 4, 5 ,6, 5, 7, 8, 10, 5, 15]
+Output: [5 ,6, 5, 7, 8, 10, 5, 15] */
+
+function lessThan5Filter(array) {
+  // declare a new empty array to hold the result
+  let result = [];
+
+  // loop through the array and check each index value
+  for (let i = 0; i < array.length; i++) {
+    // if the index value is equal to or greater than 5, push it to the new array
+    if (array[i] >= 5) {
+      result.push(array[i]);
+    }
+  }
+  return console.log(result);
+}
+lessThan5Filter([1, 4, 5, 6, 5, 7, 3, 8, 10, 4, 2, 3, 5, 15]);
