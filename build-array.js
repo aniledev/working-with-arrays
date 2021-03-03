@@ -71,14 +71,33 @@ class Array {
     );
 
     // then the value can be inserted at the pointer index
-    memory.set(this.pointer + index, value); 
+    memory.set(this.pointer + index, value);
 
     // finally the length can be incremented because one new value was added to the array
     this.length++;
   }
 
   // remove method used too remove a value from a certain memory block in the array
-  remove(index) {}
+  remove(index) {
+    // if the index is not in the array length, throw a new error
+    if (index < 0 || index >= this.length) {
+      throw new Error("Index error.");
+    }
+    // use the memory.copy method to copy the new chunk of array down one to to the new index value
+    memory.copy(
+      this.pointer +
+        index +
+        1 /* removing the index values means that index above the index 
+      value needs to be copied */,
+      this.pointer +
+        index /* once the value is removed, everything needs to be copied to the index 
+      of the removed value */,
+      this.length - index - 1 // the number of size blocks to copy
+    );
+
+    // decrement the length of the array because
+    this.length--;
+  }
 
   /* resize method is used to resize the array so that the capacity of the array in
     memory is always larger than the length of the array; allocate a larger chunk of memory,
