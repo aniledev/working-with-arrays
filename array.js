@@ -74,8 +74,8 @@ class Array {
       throw new Error("Index error");
     }
     memory.copy(
-      this.pointer + index,
       this.pointer + index + 1,
+      this.pointer + index,
       this.length - index - 1
     );
     this.length--;
